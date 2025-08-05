@@ -87,53 +87,59 @@ const CompletionJar = ({ completedTasks, dailyCount, streak, onJarShake }: Compl
         </p>
       </div>
 
-      {/* Completion Jar */}
-      <div className="relative">
-        {/* Jar Container */}
-        <div 
-          className={`
-            completion-jar relative w-24 h-32 mx-auto
-            ${isShaking ? 'jar-shake' : ''}
-          `}
-          style={{
-            background: `linear-gradient(to top, 
-              hsl(var(--jar-glass)) 0%, 
-              hsl(var(--jar-highlight)) 100%)`,
-          }}
-        >
-          {/* Jar Rim */}
-          <div className="absolute -top-1 left-1/2 transform -translate-x-1/2
-                          w-20 h-2 bg-border rounded-full shadow-sm" />
-          
-          {/* Fill Level Indicator */}
+      {/* Table Surface */}
+      <div className="relative bg-gradient-to-r from-amber-100 to-amber-50 rounded-2xl p-6 shadow-lg">
+        {/* Wood grain effect */}
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-amber-200/20 to-transparent rounded-2xl"></div>
+        
+        {/* Completion Jar */}
+        <div className="relative flex justify-center">
+          {/* Jar Container - Much Bigger */}
           <div 
-            className="absolute bottom-0 left-0 right-0 bg-completion-glow/10 
-                       transition-all duration-1000 ease-out rounded-b-2xl"
-            style={{ height: `${getJarFillPercentage()}%` }}
-          />
+            className={`
+              completion-jar relative w-40 h-56 mx-auto
+              ${isShaking ? 'jar-shake' : ''}
+            `}
+            style={{
+              background: `linear-gradient(to top, 
+                hsl(var(--jar-glass)) 0%, 
+                hsl(var(--jar-highlight)) 100%)`,
+            }}
+          >
+            {/* Jar Rim */}
+            <div className="absolute -top-2 left-1/2 transform -translate-x-1/2
+                            w-32 h-3 bg-border rounded-full shadow-sm" />
+            
+            {/* Fill Level Indicator */}
+            <div 
+              className="absolute bottom-0 left-0 right-0 bg-completion-glow/10 
+                         transition-all duration-1000 ease-out rounded-b-3xl"
+              style={{ height: `${getJarFillPercentage()}%` }}
+            />
 
-          {/* Completed Task Balls */}
-          {generateJarBalls()}
+            {/* Completed Task Balls */}
+            {generateJarBalls()}
 
-          {/* Jar Highlights */}
-          <div className="absolute top-2 left-2 w-2 h-6 bg-white/40 rounded-full opacity-60" />
-          <div className="absolute top-4 right-3 w-1 h-4 bg-white/30 rounded-full opacity-40" />
+            {/* Jar Highlights */}
+            <div className="absolute top-4 left-4 w-3 h-8 bg-white/40 rounded-full opacity-60" />
+            <div className="absolute top-6 right-5 w-2 h-6 bg-white/30 rounded-full opacity-40" />
+          </div>
+
+          {/* Completion Burst Effect */}
+          {showBurst && (
+            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+              <div className="completion-burst text-6xl">✨</div>
+            </div>
+          )}
+
+          {/* Overflow Indicator */}
+          {completedTasks.length >= 50 && (
+            <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2
+                            text-sm text-completion-glow font-medium pulse-glow">
+              Jar Full! 🎉
+            </div>
+          )}
         </div>
-
-        {/* Completion Burst Effect */}
-        {showBurst && (
-          <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-            <div className="completion-burst text-4xl">✨</div>
-          </div>
-        )}
-
-        {/* Overflow Indicator */}
-        {completedTasks.length >= 50 && (
-          <div className="absolute -bottom-6 left-1/2 transform -translate-x-1/2
-                          text-xs text-completion-glow font-medium pulse-glow">
-            Jar Full! 🎉
-          </div>
-        )}
       </div>
 
       {/* Jar Stats */}

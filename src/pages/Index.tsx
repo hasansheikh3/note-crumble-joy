@@ -54,9 +54,9 @@ const Index = () => {
         </header>
 
         {/* Main Content Grid */}
-        <div className="grid lg:grid-cols-3 gap-8">
+        <div className="grid lg:grid-cols-5 gap-8">
           {/* Left Column - Task Creation & Management */}
-          <div className="lg:col-span-2 space-y-8">
+          <div className="lg:col-span-3 space-y-8">
             {/* Task Creator */}
             <section>
               <TaskCreator onCreateTask={createTask} />
@@ -74,9 +74,9 @@ const Index = () => {
           </div>
 
           {/* Right Column - Progress & Jar */}
-          <div className="space-y-6">
+          <div className="lg:col-span-2 space-y-6">
             {/* Completion Jar */}
-            <section className="bg-card rounded-xl p-6 border border-border/50 shadow-lg">
+            <section>
               <CompletionJar
                 completedTasks={completedTasks}
                 dailyCount={todayCount}
@@ -85,72 +85,66 @@ const Index = () => {
               />
             </section>
 
-            {/* Achievement Panel */}
-            <section className="bg-card rounded-xl p-6 border border-border/50 shadow-lg">
-              <h3 className="font-semibold text-foreground mb-4 flex items-center gap-2">
-                <Target size={18} />
-                Achievements
-              </h3>
-              <div className="space-y-3">
-                <div className="flex justify-between items-center">
-                  <span className="text-sm text-muted-foreground">First Task</span>
-                  <span className={`text-xl ${completedTasks.length > 0 ? '' : 'grayscale opacity-50'}`}>
-                    🎯
-                  </span>
+            {/* Settings Menu */}
+            <details className="bg-card rounded-xl border border-border/50 shadow-lg">
+              <summary className="p-4 cursor-pointer hover:bg-accent/50 rounded-xl flex items-center gap-2">
+                <Settings size={18} />
+                <span className="font-medium">Settings & Achievements</span>
+              </summary>
+              <div className="p-4 pt-0 space-y-4">
+                {/* Achievement Panel */}
+                <div>
+                  <h4 className="font-medium text-foreground mb-3 flex items-center gap-2">
+                    <Target size={16} />
+                    Achievements
+                  </h4>
+                  <div className="grid grid-cols-2 gap-2 text-xs">
+                    <div className="flex flex-col items-center p-2 bg-accent/20 rounded">
+                      <span className={`text-lg ${completedTasks.length > 0 ? '' : 'grayscale opacity-50'}`}>🎯</span>
+                      <span className="text-muted-foreground">First Task</span>
+                    </div>
+                    <div className="flex flex-col items-center p-2 bg-accent/20 rounded">
+                      <span className={`text-lg ${todayCount >= 5 ? '' : 'grayscale opacity-50'}`}>🔥</span>
+                      <span className="text-muted-foreground">5 in a Day</span>
+                    </div>
+                    <div className="flex flex-col items-center p-2 bg-accent/20 rounded">
+                      <span className={`text-lg ${streak >= 7 ? '' : 'grayscale opacity-50'}`}>⚡</span>
+                      <span className="text-muted-foreground">Week Streak</span>
+                    </div>
+                    <div className="flex flex-col items-center p-2 bg-accent/20 rounded">
+                      <span className={`text-lg ${completedTasks.length >= 50 ? '' : 'grayscale opacity-50'}`}>👑</span>
+                      <span className="text-muted-foreground">Jar Master</span>
+                    </div>
+                  </div>
                 </div>
-                <div className="flex justify-between items-center">
-                  <span className="text-sm text-muted-foreground">5 in a Day</span>
-                  <span className={`text-xl ${todayCount >= 5 ? '' : 'grayscale opacity-50'}`}>
-                    🔥
-                  </span>
-                </div>
-                <div className="flex justify-between items-center">
-                  <span className="text-sm text-muted-foreground">Week Streak</span>
-                  <span className={`text-xl ${streak >= 7 ? '' : 'grayscale opacity-50'}`}>
-                    ⚡
-                  </span>
-                </div>
-                <div className="flex justify-between items-center">
-                  <span className="text-sm text-muted-foreground">Jar Master</span>
-                  <span className={`text-xl ${completedTasks.length >= 50 ? '' : 'grayscale opacity-50'}`}>
-                    👑
-                  </span>
-                </div>
-              </div>
-            </section>
 
-            {/* Settings Panel */}
-            <section className="bg-card rounded-xl p-6 border border-border/50 shadow-lg">
-              <div className="flex items-center justify-between mb-4">
-                <h3 className="font-semibold text-foreground flex items-center gap-2">
-                  <Settings size={18} />
-                  Settings
-                </h3>
-              </div>
-              <div className="space-y-3 text-sm">
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={clearCompletedTasks}
-                  className="w-full justify-start"
-                  disabled={completedTasks.length === 0}
-                >
-                  Clear Completed Jar
-                </Button>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={clearAllTasks}
-                  className="w-full justify-start"
-                  disabled={tasks.length === 0}
-                >
-                  Clear All Tasks
-                </Button>
-                <div className="text-xs text-muted-foreground pt-2 border-t border-border/30">
-                  💾 Data saved automatically
+                {/* Settings */}
+                <div className="space-y-2">
+                  <h4 className="font-medium text-foreground">Actions</h4>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={clearCompletedTasks}
+                    className="w-full justify-start"
+                    disabled={completedTasks.length === 0}
+                  >
+                    Clear Completed Jar
+                  </Button>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={clearAllTasks}
+                    className="w-full justify-start"
+                    disabled={tasks.length === 0}
+                  >
+                    Clear All Tasks
+                  </Button>
+                  <div className="text-xs text-muted-foreground pt-2 border-t border-border/30">
+                    💾 Data saved automatically
+                  </div>
                 </div>
               </div>
-            </section>
+            </details>
           </div>
         </div>
 

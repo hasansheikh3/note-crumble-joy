@@ -68,33 +68,6 @@ const TaskCreator = ({ onCreateTask }: TaskCreatorProps) => {
           Create New Task
         </Button>
 
-        {/* Preset Tasks */}
-        <div className="space-y-3">
-          <h3 className="text-sm font-medium text-muted-foreground">
-            Quick Morning Tasks
-          </h3>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-            {PRESET_TASKS.map((preset, index) => (
-              <Button
-                key={index}
-                variant="outline"
-                onClick={() => handlePresetTask(preset)}
-                className="h-auto p-3 justify-start text-left hover:bg-accent/50
-                           border border-border/50 rounded-lg"
-              >
-                <div className="flex flex-col items-start">
-                  <span className="text-sm font-medium">{preset.text}</span>
-                  <div className="flex items-center gap-2 text-xs text-muted-foreground mt-1">
-                    <Clock size={10} />
-                    <span>{preset.estimatedMinutes}m</span>
-                    <Tag size={10} />
-                    <span>{preset.category}</span>
-                  </div>
-                </div>
-              </Button>
-            ))}
-          </div>
-        </div>
       </div>
     );
   }
@@ -131,12 +104,14 @@ const TaskCreator = ({ onCreateTask }: TaskCreatorProps) => {
                 onClick={() => setSelectedColor(name)}
                 className={`
                   w-8 h-8 rounded-full border-2 transition-all
-                  note-${name}
                   ${selectedColor === name 
                     ? 'border-primary scale-110 shadow-lg' 
-                    : 'border-white/50 hover:scale-105'
+                    : 'border-border hover:scale-105'
                   }
                 `}
+                style={{
+                  backgroundColor: `hsl(var(--${name.replace('-', '-')}))`
+                }}
                 title={label}
               />
             ))}
