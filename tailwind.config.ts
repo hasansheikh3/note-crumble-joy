@@ -18,6 +18,9 @@ export default {
 			}
 		},
 		extend: {
+			fontFamily: {
+				sans: ['Inter', 'system-ui', 'sans-serif'],
+			},
 			colors: {
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',
@@ -52,6 +55,19 @@ export default {
 					DEFAULT: 'hsl(var(--card))',
 					foreground: 'hsl(var(--card-foreground))'
 				},
+				// Sticky Note Colors
+				'note-mint': 'hsl(var(--mint-green))',
+				'note-lavender': 'hsl(var(--lavender))',
+				'note-peach': 'hsl(var(--peach))',
+				'note-sky': 'hsl(var(--sky-blue))',
+				'note-butter': 'hsl(var(--butter-yellow))',
+				'note-coral': 'hsl(var(--coral-pink))',
+				'note-sage': 'hsl(var(--sage-green))',
+				'note-cream': 'hsl(var(--cream))',
+				// Jar Colors
+				'jar-glass': 'hsl(var(--jar-glass))',
+				'jar-highlight': 'hsl(var(--jar-highlight))',
+				'completion-glow': 'hsl(var(--completion-glow))',
 				sidebar: {
 					DEFAULT: 'hsl(var(--sidebar-background))',
 					foreground: 'hsl(var(--sidebar-foreground))',

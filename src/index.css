@@ -2,41 +2,68 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* Sticky Notes App Design System - Warm, gamified productivity */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Background & Base */
+    --background: 35 15% 98%;
+    --foreground: 25 15% 15%;
 
+    /* Card & Surfaces */
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 25 15% 15%;
 
+    /* Interactive Elements */
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover-foreground: 25 15% 15%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Primary - Warm Purple */
+    --primary: 260 85% 65%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    /* Secondary - Soft Cream */
+    --secondary: 45 20% 92%;
+    --secondary-foreground: 25 15% 25%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    /* Muted Elements */
+    --muted: 40 15% 88%;
+    --muted-foreground: 25 8% 45%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    /* Accent - Golden Yellow */
+    --accent: 45 85% 70%;
+    --accent-foreground: 25 25% 15%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    /* Destructive */
+    --destructive: 0 75% 65%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    /* Borders & Inputs */
+    --border: 40 15% 85%;
+    --input: 40 15% 90%;
+    --ring: 260 85% 65%;
 
-    --radius: 0.5rem;
+    /* Sticky Note Colors - Soft Pastels */
+    --mint-green: 140 45% 80%;
+    --lavender: 260 55% 85%;
+    --peach: 25 75% 85%;
+    --sky-blue: 200 60% 85%;
+    --butter-yellow: 50 70% 85%;
+    --coral-pink: 350 60% 85%;
+    --sage-green: 120 25% 80%;
+    --cream: 45 35% 90%;
+
+    /* Jar & Completion */
+    --jar-glass: 200 20% 92%;
+    --jar-highlight: 200 30% 95%;
+    --completion-glow: 45 100% 50%;
+
+    /* Animation Variables */
+    --bounce-duration: 0.6s;
+    --crumple-duration: 0.8s;
+    --jar-fill-duration: 1.2s;
+
+    --radius: 0.75rem;
 
     --sidebar-background: 0 0% 98%;
 
@@ -100,6 +127,138 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-sans;
+  }
+}
+
+@layer components {
+  /* Sticky Note Animations */
+  .sticky-note {
+    @apply transition-all duration-300 ease-out;
+    transform-origin: center center;
+  }
+
+  .sticky-note:hover {
+    @apply scale-105 shadow-lg;
+    transform: translateY(-2px) scale(1.05);
+  }
+
+  .sticky-note.completing {
+    animation: crumpleAndToss var(--crumple-duration) ease-in-out forwards;
+  }
+
+  .completion-burst {
+    animation: completionBurst 0.6s ease-out;
+  }
+
+  .jar-shake {
+    animation: jarShake 0.4s ease-in-out;
+  }
+
+  .bounce-in {
+    animation: bounceIn var(--bounce-duration) ease-out;
+  }
+
+  /* Note Color Variants */
+  .note-mint-green { background-color: hsl(var(--mint-green)); }
+  .note-lavender { background-color: hsl(var(--lavender)); }
+  .note-peach { background-color: hsl(var(--peach)); }
+  .note-sky-blue { background-color: hsl(var(--sky-blue)); }
+  .note-butter-yellow { background-color: hsl(var(--butter-yellow)); }
+  .note-coral-pink { background-color: hsl(var(--coral-pink)); }
+  .note-sage-green { background-color: hsl(var(--sage-green)); }
+  .note-cream { background-color: hsl(var(--cream)); }
+
+  /* Jar Styles */
+  .completion-jar {
+    background: linear-gradient(135deg, 
+      hsl(var(--jar-glass)) 0%, 
+      hsl(var(--jar-highlight)) 50%, 
+      hsl(var(--jar-glass)) 100%);
+    border: 3px solid hsl(var(--border));
+    border-radius: 0 0 2rem 2rem;
+  }
+
+  .jar-ball {
+    border-radius: 50%;
+    box-shadow: inset 2px 2px 4px rgba(255,255,255,0.3);
+  }
+}
+
+@layer utilities {
+  /* Custom Animations */
+  @keyframes crumpleAndToss {
+    0% { 
+      transform: scale(1) rotate(0deg);
+      opacity: 1;
+    }
+    25% { 
+      transform: scale(0.9) rotate(5deg);
+      opacity: 0.9;
+    }
+    50% { 
+      transform: scale(0.8) rotate(-5deg);
+      opacity: 0.8;
+    }
+    75% { 
+      transform: scale(0.6) rotate(10deg) translateY(-20px) translateX(200px);
+      opacity: 0.6;
+    }
+    100% { 
+      transform: scale(0.3) rotate(360deg) translateY(-100px) translateX(400px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes completionBurst {
+    0% { 
+      transform: scale(0);
+      opacity: 1;
+    }
+    50% { 
+      transform: scale(1.2);
+      opacity: 0.8;
+    }
+    100% { 
+      transform: scale(2);
+      opacity: 0;
+    }
+  }
+
+  @keyframes jarShake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-2px); }
+    75% { transform: translateX(2px); }
+  }
+
+  @keyframes bounceIn {
+    0% { 
+      transform: scale(0.3) translateY(-20px);
+      opacity: 0;
+    }
+    50% { 
+      transform: scale(1.1);
+      opacity: 1;
+    }
+    70% { 
+      transform: scale(0.9);
+    }
+    100% { 
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+
+  @keyframes pulse-glow {
+    0%, 100% { 
+      box-shadow: 0 0 5px hsl(var(--completion-glow) / 0.5);
+    }
+    50% { 
+      box-shadow: 0 0 20px hsl(var(--completion-glow) / 0.8);
+    }
+  }
+
+  .pulse-glow {
+    animation: pulse-glow 2s ease-in-out infinite;
   }
 }
